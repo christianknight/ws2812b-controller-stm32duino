@@ -1,6 +1,6 @@
 #include <WS2812B.h>
 
-#define NUM_LEDS 217
+#define NUM_LEDS 183
 
 WS2812B strip = WS2812B(NUM_LEDS);
 
@@ -24,7 +24,7 @@ uint8_t led_gamma[256] = {
 };
 
 bool state = true;
-int brightness = 50;
+int brightness = 15;
 String command_string;
 
 void
