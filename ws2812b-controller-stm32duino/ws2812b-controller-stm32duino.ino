@@ -98,18 +98,8 @@ process_serial(Stream * s) {
 void
 check_command_complete(String * command) {
   if (command->indexOf("\r\n") != -1) {
-    if (command->indexOf("state=") != -1) {
-       if (command->indexOf("ON") != -1) {
-         state = true;
-       }
-       else if (command->indexOf("OFF") != -1) {
-         state = false;
-       }
-    }
-    else if (command->indexOf("brightness=") != -1) {
-      brightness = (command->substring(command->indexOf("brightness=") + strlen("brightness="), command->indexOf("\r\n")).toInt());
-      strip.setBrightness(brightness);
-    }
+    brightness = (command->substring(0, command->indexOf("\r\n"))).toInt();
+    strip.setBrightness(brightness);
 
     command->remove(0);
   }
