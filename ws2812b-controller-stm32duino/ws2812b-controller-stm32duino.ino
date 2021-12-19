@@ -23,7 +23,6 @@ uint8_t led_gamma[256] = {
   215, 218, 220, 223, 225, 228, 231, 233, 236, 239, 241, 244, 247, 249, 252, 255
 };
 
-bool state = true;
 int brightness = 15;
 String command_string;
 
@@ -39,35 +38,13 @@ setup() {
 
 void
 loop() {
-  if (state == true) {
-    for (int j = 0; j < (256 * 5); j++) {
-      for (int i = 0; i < strip.numPixels(); i++) {
-        strip.setPixelColor(i, wheel(((i * 256 / strip.numPixels()) + j) & 255));
-      }
-      strip.show();
-      delay(10);
-
-      if (Serial1.available()) {
-        process_serial(&Serial1);
-        if (!state) {
-          break;
-        }
-      }
-      else if (Serial.available()) {
-        process_serial(&Serial);
-        if (!state) {
-          break;
-        }
-      }
+  for (int j = 0; j < (256 * 5); j++) {
+    for (int i = 0; i < strip.numPixels(); i++) {
+      strip.setPixelColor(i, wheel(((i * 256 / strip.numPixels()) + j) & 255));
     }
-  }
-  else {
-    /* Blank the LED strip */
-    strip.clear();
     strip.show();
+    delay(10);
 
-    /* Wait for the LED strip to be re-enabled over serial */
-    while (!Serial.available() && !Serial1.available());
     if (Serial1.available()) {
       process_serial(&Serial1);
     }
