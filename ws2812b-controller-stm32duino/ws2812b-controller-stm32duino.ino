@@ -1,6 +1,6 @@
 #include <WS2812B.h>
 
-#define NUM_LEDS 183
+#define NUM_LEDS 144
 
 WS2812B strip = WS2812B(NUM_LEDS);
 
